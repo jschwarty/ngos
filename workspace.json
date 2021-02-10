@@ -8,7 +8,7 @@
       "prefix": "ngos",
       "targets": {
         "build": {
-          "executor": "@angular-devkit/build-angular:browser",
+          "executor": "ngx-build-plus:browser",
           "options": {
             "outputPath": "dist/apps/ngos-app",
             "index": "apps/ngos-app/src/index.html",
@@ -20,8 +20,11 @@
               "apps/ngos-app/src/favicon.ico",
               "apps/ngos-app/src/assets"
             ],
-            "styles": ["apps/ngos-app/src/styles.scss"],
-            "scripts": []
+            "styles": [
+              "apps/ngos-app/src/styles.scss"
+            ],
+            "scripts": [],
+            "extraWebpackConfig": "apps/ngos-app/webpack.config.js"
           },
           "configurations": {
             "production": {
@@ -49,18 +52,22 @@
                   "maximumWarning": "6kb",
                   "maximumError": "10kb"
                 }
-              ]
+              ],
+              "extraWebpackConfig": "apps/ngos-app/webpack.prod.config.js"
             }
           }
         },
         "serve": {
-          "executor": "@angular-devkit/build-angular:dev-server",
+          "executor": "ngx-build-plus:dev-server",
           "options": {
-            "browserTarget": "ngos-app:build"
+            "browserTarget": "ngos-app:build",
+            "extraWebpackConfig": "apps/ngos-app/webpack.config.js",
+            "port": 4200
           },
           "configurations": {
             "production": {
-              "browserTarget": "ngos-app:build:production"
+              "browserTarget": "ngos-app:build:production",
+              "extraWebpackConfig": "apps/ngos-app/webpack.prod.config.js"
             }
           }
         },
@@ -80,11 +87,14 @@
           }
         },
         "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/ngos-app"],
+          "executor": "ngx-build-plus:karma",
+          "outputs": [
+            "coverage/apps/ngos-app"
+          ],
           "options": {
             "jestConfig": "apps/ngos-app/jest.config.js",
-            "passWithNoTests": true
+            "passWithNoTests": true,
+            "extraWebpackConfig": "apps/ngos-app/webpack.config.js"
           }
         }
       }
@@ -110,7 +120,9 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/ngos-app-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": [
+              "apps/ngos-app-e2e/**/*.{js,ts}"
+            ]
           }
         }
       }
@@ -134,7 +146,9 @@
               "apps/my-weather/src/favicon.ico",
               "apps/my-weather/src/assets"
             ],
-            "styles": ["apps/my-weather/src/styles.scss"],
+            "styles": [
+              "apps/my-weather/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -196,7 +210,9 @@
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/my-weather"],
+          "outputs": [
+            "coverage/apps/my-weather"
+          ],
           "options": {
             "jestConfig": "apps/my-weather/jest.config.js",
             "passWithNoTests": true
@@ -225,7 +241,9 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/my-weather-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": [
+              "apps/my-weather-e2e/**/*.{js,ts}"
+            ]
           }
         }
       }
