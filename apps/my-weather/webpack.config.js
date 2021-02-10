@@ -9,7 +9,7 @@ sharedMappings.register(
 
 module.exports = {
   output: {
-    uniqueName: "ngos-app"
+    uniqueName: "my-weather"
   },
   optimization: {
     // Only needed to bypass a temporary bug
@@ -19,16 +19,17 @@ module.exports = {
     new ModuleFederationPlugin({
 
         // For remotes (please adjust)
-        // name: "ngos-app",
-        // filename: "remoteEntry.js",
-        // exposes: {
-        //     './Component': './apps/ngos-app/src/app/app.component.ts',
-        // },
+        name: "my-weather",
+        filename: "remoteEntry.js",
+        exposes: {
+            './Component': './apps/my-weather/src/app/app.component.ts',
+        },
 
         // For hosts (please adjust)
-        remotes: {
-            "my-weather": "my-weather@http://localhost:4201/remoteEntry.js",
-        },
+        // remotes: {
+        //     "ngos-app": "ngos-app@http://localhost:4200/remoteEntry.js",
+
+        // },
 
         shared: {
           "@angular/core": { singleton: true, strictVersion: true },
