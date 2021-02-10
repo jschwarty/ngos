@@ -21,6 +21,8 @@
   },
   "projects": {
     "ngos-app": { "tags": [] },
-    "ngos-app-e2e": { "tags": [], "implicitDependencies": ["ngos-app"] }
+    "ngos-app-e2e": { "tags": [], "implicitDependencies": ["ngos-app"] },
+    "my-weather": { "tags": [] },
+    "my-weather-e2e": { "tags": [], "implicitDependencies": ["my-weather"] }
   }
 }

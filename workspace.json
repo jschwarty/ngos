@@ -20,9 +20,7 @@
               "apps/ngos-app/src/favicon.ico",
               "apps/ngos-app/src/assets"
             ],
-            "styles": [
-              "apps/ngos-app/src/styles.scss"
-            ],
+            "styles": ["apps/ngos-app/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -83,9 +81,7 @@
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/ngos-app"
-          ],
+          "outputs": ["coverage/apps/ngos-app"],
           "options": {
             "jestConfig": "apps/ngos-app/jest.config.js",
             "passWithNoTests": true
@@ -114,9 +110,122 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
+            "lintFilePatterns": ["apps/ngos-app-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "my-weather": {
+      "projectType": "application",
+      "root": "apps/my-weather",
+      "sourceRoot": "apps/my-weather/src",
+      "prefix": "ngos",
+      "targets": {
+        "build": {
+          "executor": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/my-weather",
+            "index": "apps/my-weather/src/index.html",
+            "main": "apps/my-weather/src/main.ts",
+            "polyfills": "apps/my-weather/src/polyfills.ts",
+            "tsConfig": "apps/my-weather/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/my-weather/src/favicon.ico",
+              "apps/my-weather/src/assets"
+            ],
+            "styles": ["apps/my-weather/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/my-weather/src/environments/environment.ts",
+                  "with": "apps/my-weather/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "port": 4201,
+            "browserTarget": "my-weather:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "my-weather:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "executor": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "my-weather:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
             "lintFilePatterns": [
-              "apps/ngos-app-e2e/**/*.{js,ts}"
+              "apps/my-weather/src/**/*.ts",
+              "apps/my-weather/src/**/*.html"
             ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/my-weather"],
+          "options": {
+            "jestConfig": "apps/my-weather/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "my-weather-e2e": {
+      "root": "apps/my-weather-e2e",
+      "sourceRoot": "apps/my-weather-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/my-weather-e2e/cypress.json",
+            "tsConfig": "apps/my-weather-e2e/tsconfig.e2e.json",
+            "devServerTarget": "my-weather:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "my-weather:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/my-weather-e2e/**/*.{js,ts}"]
           }
         }
       }
